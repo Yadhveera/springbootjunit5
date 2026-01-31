@@ -43,7 +43,7 @@ stages:
         publishLocation: 'Container'
 
 - stage: Deploy
-  displayName: 'Deploy Stage'
+  displayName: 'Deploy Stage' 
   dependsOn: Build
   jobs:
   - job: DeployJob
