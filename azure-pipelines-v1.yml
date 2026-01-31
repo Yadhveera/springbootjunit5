@@ -35,8 +35,8 @@ stages:
         testResultsFiles: '**/surefire-reports/TEST-*.xml'
         goals: 'package'
     # Step 2: Publish Build Artifacts
-    - task: PublishBuildArtifacts@1
-      displayName: 'Publish Build Artifacts'
+    - task: publishpipelineartifact@1
+      displayName: 'Publish pipeline Artifacts'
       inputs:
         PathtoPublish: 'target'    # Maven's default output folder
         ArtifactName: 'drop'       # Name of the artifact
@@ -52,10 +52,11 @@ stages:
     - script: echo "Deploying the application..."
       displayName: 'Deploy Application'
     # Add your deployment steps here
-    - task: DownloadBuildArtifacts@0
-      displayName: 'Download Build Artifacts'
+    - task: DownloadPipelineArtifact@2
+      displayName: 'Download Pipeline Artifacts'
       inputs:
         buildType: 'current'
         downloadType: 'single'
         artifactName: 'drop'
         downloadPath: '$(System.ArtifactsDirectory)'
+        
