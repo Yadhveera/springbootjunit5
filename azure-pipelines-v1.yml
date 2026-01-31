@@ -36,6 +36,6 @@ stages:
         goals: 'package'    # Step 1: Build with Maven
     - task: PublishBuildArtifacts@1
       inputs:
-          PathtoPublish: 'target'    # Maven's default output folder
+        PathtoPublish: 'target'    # Maven's default output folder
         ArtifactName: 'drop'       # Name of the artifact
         publishLocation: 'Container'
