@@ -1,4 +1,4 @@
-# Java Tests in Spring Boot project
+# JUnit 5 Tests in Spring Boot project hi yadhveera
 
 Demo Spring Boot project with JUnit 5 Tests. It includes integration test (for controller) and unit tests (for service and simple class).
 
