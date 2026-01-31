@@ -3,27 +3,30 @@
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
 
+variables:
+- template: azure-pipelines-variables.yml
+
 trigger:
-- master
+- ${{ variables.triggerBranch }}
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: ${{ variables.vmImage }}
 
 steps:
 - task: Maven@3
   inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
+    mavenPomFile: '$(mavenPomFile)'
+    mavenOptions: '$(mavenOptions)'
     javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.11'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
+    jdkVersionOption: '$(jdkVersion)'
+    jdkArchitectureOption: '$(jdkArch)'
+    publishJUnitResults: $(publishJUnitResults)
+    testResultsFiles: '$(testResultsFiles)'
+    goals: '$(mavenGoals)'
 
 # Step 2: Publish build artifacts
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: 'target'    # Maven's default output folder
-    ArtifactName: 'drop'       # Name of the artifact
-    publishLocation: 'Container'
+    PathtoPublish: '$(pathToPublish)'    # Maven's default output folder
+    ArtifactName: '$(artifactName)'       # Name of the artifact
+    publishLocation: '$(publishLocation)'
