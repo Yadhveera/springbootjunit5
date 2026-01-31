@@ -2,7 +2,7 @@
 
 Demo Spring Boot project with JUnit 5 Tests. It includes integration test (for controller) and unit tests (for service and simple class).
 
-## Technologies 33
+## Technologies 35
 
 1. Spring Boot (spring-boot-starter-web, spring-boot-starter-tomcat, spring-boot-starter-test)
 2. Java 8
