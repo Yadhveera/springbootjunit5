@@ -4,20 +4,16 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-variables:
-  MAVEN_OPTS: '-Xmx3072m'
 
 steps:
-# 1. Checkout code
+
 - task: Checkout@1
 
-# 2. Setup Java 11
 - task: JavaToolInstaller@0
   inputs:
     versionSpec: '11'
     jdkArchitectureOption: 'x64'
 
-# 3. Maven Build & Unit Test
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
@@ -26,7 +22,6 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
 
-# 4. Publish Artifact
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: 'target'
