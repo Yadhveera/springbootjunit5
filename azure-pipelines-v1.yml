@@ -52,7 +52,7 @@ stages:
     - script: echo "Deploying the application..."
       displayName: 'Deploy Application'
     # Add your deployment steps here
-    -task: DownloadBuildArtifacts@0
+    - task: DownloadBuildArtifacts@0
       displayName: 'Download Build Artifacts'
       inputs:
         buildType: 'current'
