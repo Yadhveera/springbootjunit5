@@ -10,21 +10,32 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.11'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
 
-# Step 2: Publish build artifacts
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: 'target'    # Maven's default output folder
-    ArtifactName: 'drop'       # Name of the artifact
-    publishLocation: 'Container'
+variables:  
+    - template: azure-pipelines-variables.yml
+
+name: $(majorVersion).$(minorVersion).$(patchVersion)-$(Rev:r)
+
+
+stages:
+- stage: Build
+  displayName: 'Build Stage'
+  jobs:
+  - job: BuildJob
+    displayName: 'Build Job'
+    steps:
+    - task: Maven@3
+      inputs:
+        mavenPomFile: 'pom.xml'
+        mavenOptions: '-Xmx3072m'
+        javaHomeOption: 'JDKVersion'
+        jdkVersionOption: '1.11'
+        jdkArchitectureOption: 'x64'
+        publishJUnitResults: true
+        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        goals: 'package'    # Step 1: Build with Maven
+    - task: PublishBuildArtifacts@1
+      inputs:
+          PathtoPublish: 'target'    # Maven's default output folder
+        ArtifactName: 'drop'       # Name of the artifact
+        publishLocation: 'Container'
