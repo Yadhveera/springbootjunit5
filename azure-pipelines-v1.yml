@@ -12,7 +12,7 @@ pool:
 
 
 variables:  
-    - template: azure-pipelines-variables.yml
+- template: azure-pipelines-variables.yml
 
 name: $(majorVersion).$(minorVersion).$(patchVersion)-$(Rev:r)
 
