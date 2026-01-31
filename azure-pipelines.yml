@@ -7,7 +7,6 @@ pool:
 
 steps:
 
-- task: Checkout@1
 
 - task: JavaToolInstaller@0
   inputs:
