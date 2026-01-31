@@ -20,3 +20,10 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
+
+# Step 2: Publish build artifacts
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: 'target'    # Maven's default output folder
+    ArtifactName: 'drop'       # Name of the artifact
+    publishLocation: 'Container'
