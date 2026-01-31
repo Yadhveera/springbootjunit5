@@ -1,25 +1,13 @@
 variables:
-  - name: triggerBranch
-    value: releases/*
-  - name: vmImage
-    value: ubuntu-latest
-  - name: mavenPomFile
-    value: pom.xml
-  - name: mavenOptions
-    value: -Xmx3072m
-  - name: jdkVersion
-    value: '1.11'
-  - name: jdkArch
-    value: x64
-  - name: publishJUnitResults
-    value: 'true'
-  - name: testResultsFiles
-    value: '**/surefire-reports/TEST-*.xml'
-  - name: mavenGoals
-    value: package
-  - name: pathToPublish
-    value: target
-  - name: artifactName
-    value: drop
-  - name: publishLocation
-    value: Container
+  triggerBranch: 'main'
+  vmImage: 'ubuntu-latest'
+  mavenPomFile: 'pom.xml'
+  mavenOptions: '-Xmx3072m'
+  jdkVersion: '11'
+  jdkArch: 'x64'
+  publishJUnitResults: true
+  testResultsFiles: '**/surefire-reports/TEST-*.xml'
+  mavenGoals: 'clean install'
+  pathToPublish: 'target'
+  artifactName: 'java-app'
+  publishLocation: 'Container'
