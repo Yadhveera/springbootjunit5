@@ -25,6 +25,7 @@ stages:
     displayName: 'Build Job'
     steps:
     - task: Maven@3
+      displayName: 'Maven Package'
       inputs:
         mavenPomFile: 'pom.xml'
         mavenOptions: '-Xmx3072m'
@@ -35,7 +36,25 @@ stages:
         testResultsFiles: '**/surefire-reports/TEST-*.xml'
         goals: 'package'    # Step 1: Build with Maven
     - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact'
       inputs:
         PathtoPublish: 'target'    # Maven's default output folder
         ArtifactName: 'drop'       # Name of the artifact
         publishLocation: 'Container'
+
+- stage: Deploy
+  displayName: 'Deploy Stage'
+  dependsOn: Build
+  jobs:
+  - job: DeployJob
+    displayName: 'Deploy Job'
+    steps:
+    - script: echo "Deploying version $(Build.BuildNumber)"
+      displayName: 'Deploy Application'
+    - task: DownloadBuildArtifacts@0
+      displayName: 'Download Build Artifacts'
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        artifactName: 'drop'
+        downloadPath: '$(System.ArtifactsDirectory)'
