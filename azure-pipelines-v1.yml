@@ -41,8 +41,10 @@ stages:
   jobs:
   - job: Deploy
     displayName: 'Deploy Job'
-    - template: templates/deploy-and-download.yml
-      parameters:
-        deployMessage: 'Starting deployment...'
-        artifactTargetPath: '$(Pipeline.Workspace)'
+    steps:
+      - template: templates/deploy-and-download.yml
+        parameters:
+          deployMessage: 'Starting deployment...'
+          artifactTargetPath: '$(Pipeline.Workspace)'
+
         
