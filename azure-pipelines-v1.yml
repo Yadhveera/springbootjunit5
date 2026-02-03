@@ -41,13 +41,8 @@ stages:
   jobs:
   - job: Deploy
     displayName: 'Deploy Job'
-    steps:
-    - script: echo "Deploying the application..."
-      displayName: 'Deploy Application'
-    # Add your deployment steps here
-    - task: DownloadPipelineArtifact@2
-      displayName: 'Download Pipeline Artifacts'
-      inputs:
-        buildType: 'current'       
-        targetPath: '$(Pipeline.Workspace)'
+    - template: templates/deploy-and-download.yml
+      parameters:
+        deployMessage: 'Starting deployment...'
+        artifactTargetPath: '$(Pipeline.Workspace)'
         
