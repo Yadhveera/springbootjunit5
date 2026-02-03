@@ -30,9 +30,9 @@ stages:
         mavenGoals: 'clean package'
     # Step 2: Publish Build Artifacts
     - template: templates/publish-artifact.yml
-        parameters:
-          targetPath: '$(Build.ArtifactStagingDirectory)'
-          artifactName: 'my-app'    
+      parameters:
+        targetPath: '$(Build.ArtifactStagingDirectory)'
+        artifactName: 'my-app'    
 
 
 - stage: Deploy
