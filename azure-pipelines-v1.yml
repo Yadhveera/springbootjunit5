@@ -29,12 +29,10 @@ stages:
         jdkVersion: '1.11'
         mavenGoals: 'clean package'
     # Step 2: Publish Build Artifacts
-    - task: PublishPipelineArtifact@1
-      displayName: 'Publish pipeline Artifacts'
-      inputs:
-        targetPath: '$(Pipeline.Workspace)' 
-        publishLocation: 'pipeline' 
-        artifactName: 'drop'       # Name of the artifact
+    - template: templates/publish-artifact.yml
+        parameters:
+          targetPath: '$(Build.ArtifactStagingDirectory)'
+          artifactName: 'my-app'    
 
 
 - stage: Deploy
