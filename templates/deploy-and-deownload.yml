@@ -1,0 +1,13 @@
+parameters:
+  deployMessage: 'Deploying the application...'
+  artifactTargetPath: '$(Pipeline.Workspace)'
+
+steps:
+  - script: echo '${{ parameters.deployMessage }}'
+    displayName: 'Deploy Application'
+    
+  - task: DownloadPipelineArtifact@2
+    displayName: 'Download Pipeline Artifacts'
+    inputs:
+      buildType: 'current'
+      targetPath: ${{ parameters.artifactTargetPath }}
